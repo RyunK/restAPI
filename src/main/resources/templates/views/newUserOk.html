@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 등록 결과</title>
+</head>
+<body>
+  <h1>사용자 등록 결과</h1>
+  <ul>
+      <li th:text="${user.userid}">userid</li>
+      <li th:text="${user.name}">name</li>
+      <li th:text="${user.email}">email</li>
+  </ul>
+  <p th:text="${msg}">처리결과</p>
+
+  <hr>
+  <div><a href="/api/getUsers">사용자 조회</a></div>
+
+</body>
+</html>
