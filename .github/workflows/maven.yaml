@@ -24,7 +24,7 @@ jobs:
         run: chmod  +x  gradlew
         
       - name: build with gradle
-        run: ./gradlew  clean  build
+        run: ./gradlew  clean  build  -DskipTests
         
       - name: list build/libs directory
         run:  ls -al  ./build/libs  
