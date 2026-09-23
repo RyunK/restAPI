@@ -21,7 +21,11 @@ jobs:
         run: chmod  +x  mvnw
         
       - name: build with gradle
+        run: ./gradlew  clean  build  -DskipTests
+=========
+      - name: build with mvnw
         run: ./mvnw  clean  package  -DskipTests
+>>>>>>>>> Temporary merge branch 2
         
       - name: list build/libs directory
         run:  ls -al  ./target 
