@@ -23,8 +23,8 @@ jobs:
       - name: grant execute permission
         run: chmod  +x  mvnw
         
-      - name: build with mvnw
-        run: ./mvnw  clean  package  -DskipTests
+      - name: build with gradle
+        run: ./gradlew  clean  build
         
       - name: list build/libs directory
         run:  ls -al  ./target 
