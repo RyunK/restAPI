@@ -21,17 +21,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         
       - name: grant execute permission
-        run: chmod  +x  gradlew
+        run: chmod  +x  mvnw
         
-      - name: build with gradle
-        run: ./gradlew  clean  build
+      - name: build with mvnw
+        run: ./mvnw  clean  package  -DskipTests
         
       - name: list build/libs directory
-        run:  ls -al  ./build/libs  
+        run:  ls -al  ./target 
 
       - name: run springboot application
         run: |
-          java  -jar   ./build/libs/restapi-0.0.1-SNAPSHOT.jar  &
+          java  -jar   ./target/restapi-0.0.1-SNAPSHOT.jar  &
           sleep  30   #  stand by 30 sec 
 
       - name: run automated test #1
