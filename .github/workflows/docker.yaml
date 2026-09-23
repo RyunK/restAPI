@@ -1,0 +1,47 @@
+name: spring boot3 docker build & run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+env:
+  IMAGE_NAME: restapi-app
+
+jobs:
+  docker_build_and_run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+
+      - name: Run container
+        run: |
+          docker run -d --name restapi-container \
+            -p 8080:8080 \
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Wait for app to be ready
+        run: |
+          for i in {1..30}; do
+            curl -sf http://localhost:8080 && break
+            echo "waiting for app... ($i)"
+            sleep 2
+          done
+
+      - name: Run automated test #1
+        run: curl -sf http://localhost:8080/api/v1/users || exit 1
+
+      - name: Show container logs (on failure)
+        if: failure()
+        run: docker logs restapi-container
+
+      - name: Stop and remove container
+        if: always()
+        run: |
+          docker stop restapi-container || true
+          docker rm restapi-container || true
