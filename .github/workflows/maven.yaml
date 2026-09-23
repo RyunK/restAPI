@@ -16,14 +16,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin' 
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        
+       
       - name: grant execute permission
         run: chmod  +x  mvnw
         
-      - name: build with mvnw
+      - name: build with gradle
         run: ./mvnw  clean  package  -DskipTests
         
       - name: list build/libs directory
